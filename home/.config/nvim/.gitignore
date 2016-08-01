@@ -1,0 +1,7 @@
+/dein/.dein/
+/dein/cache_nvim
+/dein/merged
+/dein/repos
+/dein/rollbacks/
+/dein/state_nvim.vim
+/dein/temp/
