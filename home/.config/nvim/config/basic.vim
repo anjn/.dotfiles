@@ -29,6 +29,7 @@ set guioptions+=a
 "set ttymouse=xterm2
 
 "encoding
+scriptencoding utf-8
 set encoding=utf-8
 set fileencoding=japan
 set fileencodings=utf-8,iso-2022-jp,euc-jp,ucs-2le,ucs-2,cp932
