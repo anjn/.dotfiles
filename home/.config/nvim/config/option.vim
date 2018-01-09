@@ -6,12 +6,11 @@ set hidden
 set browsedir=buffer
 set whichwrap=b,s,h,l,<,>,[,]
 
+" colorscheme
+autocmd VimEnter,ColorScheme * highlight Normal ctermbg=none
+colorscheme tender
+
 "display
-"" white background
-autocmd ColorScheme * highlight Normal ctermbg=15 
-"colorscheme jellybeans
-"colorscheme delek
-colorscheme Tomorrow
 set wildmenu
 set wildmode=longest:full,full
 set scrolloff=5
@@ -52,8 +51,6 @@ set cino=N-s
 "insert mode
 inoremap <C-e> <END>
 inoremap <C-a> <HOME>
-"inoremap <C-j> <Down>
-"inoremap <C-k> <Up>
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
 
@@ -75,33 +72,3 @@ set smartcase
 "dir
 let g:netrw_liststyle=3
 
-"cursor
-augroup vimrc-auto-cursorline
-  autocmd!
-  autocmd CursorMoved,CursorMovedI * call Auto_cursorline('CursorMoved')
-  autocmd CursorHold,CursorHoldI * call Auto_cursorline('CursorHold')
-  autocmd WinEnter * call Auto_cursorline('WinEnter')
-  autocmd WinLeave * call Auto_cursorline('WinLeave')
-
-  let g:cursorline_lock = 0
-  function! Auto_cursorline(event)
-    if a:event ==# 'WinEnter'
-      setlocal cursorline
-      let g:cursorline_lock = 2
-    elseif a:event ==# 'WinLeave'
-      setlocal nocursorline
-    elseif a:event ==# 'CursorMoved'
-      if g:cursorline_lock
-        if 1 < g:cursorline_lock
-          let g:cursorline_lock = 1
-        else
-          setlocal nocursorline
-          let g:cursorline_lock = 0
-        endif
-      endif
-    elseif a:event ==# 'CursorHold'
-      setlocal cursorline
-      let g:cursorline_lock = 1
-    endif
-  endfunction
-augroup END

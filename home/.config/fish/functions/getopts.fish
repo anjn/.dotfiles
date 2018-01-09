@@ -1,0 +1,1 @@
+/home/anjn/.config/fisherman/getopts/getopts.fish

@@ -1,0 +1,1 @@
+/home/anjn/.config/fisherman/get/functions/get.fish

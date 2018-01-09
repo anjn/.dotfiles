@@ -2,13 +2,24 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo = 'chriskempson/vim-tomorrow-theme'
-
-[[plugins]]
 repo = 'itchyny/lightline.vim'
 
 [[plugins]]
-repo = 'Yggdroot/indentLine'
+repo = 'scrooloose/nerdtree'
+
+[[plugins]]
+repo = 'Xuyuanp/nerdtree-git-plugin'
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+
+[[plugins]]
+repo = 'kassio/neoterm'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'jacoborus/tender.vim'
+
+

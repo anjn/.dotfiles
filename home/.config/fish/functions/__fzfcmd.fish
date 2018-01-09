@@ -1,0 +1,1 @@
+/home/anjn/.config/fisherman/fzf/functions/__fzfcmd.fish
