@@ -3,35 +3,19 @@ URxvt*scrollBar: false
 URxvt.inputMethod: fcitx
 URxvt.preeditType: OnTheShot
 
-!URxvt*font: xft:Ricty:size=14:antialias=true
-!URxvt.letterSpace: -1
+URxvt.perl-ext-common: xim-onthespot,selection-to-clipboard,resize-font
 
-!URxvt*font: xft:Cica:size=14:antialias=true:hinting=true
-!URxvt.letterSpace: 0
-!URxvt*font: xft:Inconsolata Nerd Font:pixelsize=20
-!URxvt.letterSpace: 0
+URxvt.keysym.C-Down:  resize-font:smaller
+URxvt.keysym.C-Up:    resize-font:bigger
 
-!URxvt*font: xft:Sauce Code Pro Nerd Font:pixelsize=20
-!URxvt.letterSpace: 0
-!#define fonts xft:Sauce Code Pro Nerd Font:pixelsize=18,\
-!              xft:terminus:pixelsize:18,\
-!              xft:bitstream vera sans mono:pixelsize=18
-!#define fonts xft:Sauce Code Pro Nerd Font:pixelsize=16,\
-!              xft:Cica,\
-!              xft:BitstreamVeraSansMono Nerd Font Mono
-
-!#define fonts xft:SauceCodePro Nerd Font Mono:pixelsize=16,\
-!              xft:Cica,\
-!              xft:BitstreamVeraSansMono Nerd Font Mono
+URxvt.iso14755: false
+URxvt.iso14755_52: false
 
 #define fonts xft:Cica:pixelsize=16,\
               xft:SauceCodePro Nerd Font Mono,\
               xft:BitstreamVeraSansMono Nerd Font Mono
 
-!#define fonts xft:Cica:pixelsize=18:hinting=true,\
-!              xft:Sauce Code Pro Nerd Font
-!#define fonts xft:Cica:pixelsize=16
-URxvt*font: fonts
+URxvt.font: fonts
 URxvt.letterSpace: +1
 
 URxvt.pointerBlank: true
@@ -60,8 +44,8 @@ URxvt.color12:    #b3deef
 URxvt.color13:    #d3b987
 URxvt.color14:    #73cef4
 URxvt.color15:    #ffffff
-URxvt.foreground: #eeeeee
-URxvt.background: #282828
+URxvt.foreground: #ffffff
+URxvt.background: #000000
 URxvt.colorIT:    #8ec07c
 URxvt.colorBD:    #fe8019
 URxvt.colorUL:    #83a598
