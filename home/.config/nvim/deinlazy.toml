@@ -20,7 +20,7 @@ build = 'env PY3=ON ./install.sh'
 repo = 'Shougo/denite.nvim'
 on_event = 'BufRead'
 hook_add = '''
-  nmap <silent> ,f :<C-u>DeniteBufferDir file<CR>
+  nmap <silent> ,f :<C-u>DeniteBufferDir file file:new<CR>
   nmap <silent> ,b :<C-u>Denite buffer<CR>
   nmap <silent> ,d :<C-u>Denite directory_rec<CR>
   nmap <silent> ,c :<C-u>Denite colorscheme<CR>

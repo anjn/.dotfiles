@@ -67,6 +67,6 @@ xset m 4/1 4
 imwheel
 
 urxvtd & #-q -c -o
-feh --randomize --bg-scale /home/anjn/Pictures/wallpapers/*.jpg
+feh --randomize --bg-scale $HOME/Pictures/wallpapers/*.jpg
 exec i3
-#exec i3 -V >> /home/anjn/.i3log 2>&1
+#exec i3 -V >> $HOME/.i3log 2>&1
