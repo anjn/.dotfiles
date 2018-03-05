@@ -1,0 +1,47 @@
+# Maintainer: Marat Akhin <Marat.Akhin@gmail.com>
+
+pkgname=boolector
+pkgver=2.4.1
+pkgrel=2
+pkgdesc="Boolector is an efficient SMT solver for the quantifier-free theory of bit-vectors in combination with the quantifier-free extensional theory of arrays."
+arch=('i686' 'x86_64')
+url="http://fmv.jku.at/boolector/"
+license=('custom')
+makedepends=()
+conflicts=()
+
+install="boolector.install"
+
+source=("http://fmv.jku.at/boolector/boolector-2.4.1-with-lingeling-bbc.tar.bz2")
+md5sums=('072fc5a9ef85028ea1581545e9993ed1')
+
+build() {
+  cd "$srcdir/boolector-2.4.1-with-lingeling-bbc"
+  CFLAGS="" make
+}
+
+package() {
+  mkdir -p "$pkgdir/usr/bin/"
+  mkdir -p "$pkgdir/usr/lib/"
+
+  cd "$srcdir/boolector-2.4.1-with-lingeling-bbc/lingeling"
+  mkdir -p "$pkgdir/usr/include/lingeling"
+  install -m644 *.h "$pkgdir/usr/include/lingeling/"
+  install -m755 *.a "$pkgdir/usr/lib/"
+  install -m755 lingeling "$pkgdir/usr/bin/"
+
+  cd "$srcdir/boolector-2.4.1-with-lingeling-bbc/boolector"
+  mkdir -p "$pkgdir/usr/include/boolector"
+  install -m644 src/*.h "$pkgdir/usr/include/boolector/"
+  for d in api/python dumper parser simplifier utils ; do
+    mkdir -p "$pkgdir/usr/include/boolector/$d"
+    install -m644 src/$d/*.h "$pkgdir/usr/include/boolector/$d"
+  done
+  install -m755 build/*.a "$pkgdir/usr/lib/"
+  install -m755 bin/boolector "$pkgdir/usr/bin/"
+
+  mkdir -p "$pkgdir/usr/share/licenses/boolector"
+  install -m644 \
+    "$srcdir/boolector-2.4.1-with-lingeling-bbc/boolector/COPYING" \
+    "$pkgdir/usr/share/licenses/boolector/LICENSE"
+}
