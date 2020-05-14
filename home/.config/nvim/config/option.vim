@@ -18,9 +18,9 @@ set showcmd
 set ruler
 set number
 set cmdheight=1
-set cursorline
+"set cursorline
 
-syntax on
+"syntax on
 
 "mouse
 set mouse=a
@@ -72,3 +72,5 @@ set smartcase
 "dir
 let g:netrw_liststyle=3
 
+"clipboard
+set clipboard+=unnamedplus

@@ -1,0 +1,75 @@
+#include ".Xresources.d/color"
+#include ".Xresources.d/typeface-cica"
+
+URxvt*loginShell: true
+URxvt*scrollBar: false
+URxvt.inputMethod: fcitx
+URxvt.preeditType: OnTheShot
+
+!URxvt.perl-ext-common: xim-onthespot,selection-to-clipboard,resize-font
+
+URxvt.keysym.C-Down:  resize-font:smaller
+URxvt.keysym.C-Up:    resize-font:bigger
+
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
+#define fonts xft:Cica:pixelsize=18,\
+              xft:SauceCodePro Nerd Font Mono,\
+              xft:BitstreamVeraSansMono Nerd Font Mono
+
+URxvt.font: fonts
+!URxvt.font: typeface_terminal
+!URxvt.letterSpace: +1
+
+URxvt.pointerBlank: true
+URxvt.visualBell: true
+URxvt.saveLines: 10000
+
+!! Background
+URxvt.transparent: true
+URxvt.shading: 10
+URxvt.fading: 10
+
+!! Color
+URxvt.color0:     color_base03
+URxvt.color1:     color_red     
+URxvt.color2:     color_green       
+URxvt.color3:     color_yellow       
+URxvt.color4:     color_blue       
+URxvt.color5:     color_magenta       
+URxvt.color6:     color_cyan       
+URxvt.color7:     color_base1       
+URxvt.color8:     color_base03       
+URxvt.color9:     color_orange      
+URxvt.color10:    color_base01       
+URxvt.color11:    color_base00       
+URxvt.color12:    color_base0       
+URxvt.color13:    color_violet       
+URxvt.color14:    color_base1       
+URxvt.color15:    color_base3
+!URxvt.color0:     #282828
+!URxvt.color1:     #f43753
+!URxvt.color2:     #c9d05c
+!URxvt.color3:     #ffc24b
+!URxvt.color4:     #b3deef
+!URxvt.color5:     #d3b987
+!URxvt.color6:     #73cef4
+!URxvt.color7:     #eeeeee
+!URxvt.color8:     #1d1d1d
+!URxvt.color9:     #f43753
+!URxvt.color10:    #c9d05c
+!URxvt.color11:    #ffc24b
+!URxvt.color12:    #b3deef
+!URxvt.color13:    #d3b987
+!URxvt.color14:    #73cef4
+!URxvt.color15:    #ffffff
+URxvt.foreground: #ffffff
+URxvt.background: #000000
+URxvt.colorIT:    #8ec07c
+URxvt.colorBD:    #fe8019
+URxvt.colorUL:    #83a598
+
+xterm*dynamicColors: true
+URxvt*dynamicColors: on
+

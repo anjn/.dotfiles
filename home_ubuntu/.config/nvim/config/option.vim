@@ -17,8 +17,13 @@ set scrolloff=5
 set showcmd
 set ruler
 set number
+"set relativenumber
 set cmdheight=1
 set cursorline
+"set nocursorline
+"set lazyredraw
+"set ttyfast
+set re=1
 
 syntax on
 
