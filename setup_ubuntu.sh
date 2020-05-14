@@ -1,82 +1,159 @@
 #!/usr/bin/env bash
-set -xe
+#set -xe
+set -e
 
 dir=$(dirname $(readlink -f $0))
+dothome=$dir/home_ubuntu
 
-# sudo apt update
-# sudo apt upgrade -y
-# sudo apt install -y git
-# git clone https://github.com/anjn/.dotfiles.git
+# Update
+#sudo apt update
+#sudo apt upgrade -y
 
-mkdir -p ~/tmp
-cd ~/tmp
+# Create tmp directory
+tmp=$(mktemp -d)
+function rm_tmp {
+  [[ -e "$tmp" ]] && rm -rf "$tmp"
+}
+trap rm_tmp EXIT
+trap 'trap - EXIT; rm_tmp; exit -1' INT PIPE TERM
+cd $tmp
 
-# ## Regolith Linux
-# sudo add-apt-repository -y ppa://kgilmer/regolith-stable
-# sudo apt update
-# sudo apt install -y regolith-desktop
+# List installed packages
+installed=$tmp/installed
+apt list --installed > $installed
 
-# TODO
-# cp /etc/regolith/styles/root ~/.Xresources-regolith
-# mkdir -p ~/.Xresources.d
-# cp /etc/regolith/styles/* ~/.Xresources.d
-# mkdir -p ~/.config/regolith
-# cp -r /etc/regolith/i3* ~/.config/regolith
+# Utilities
+function not_installed {
+  ! grep -e "^$1/" $installed > /dev/null
+}
+function apt_install {
+  for arg; do
+    if not_installed $arg ; then
+      echo Install: $arg
+      sudo apt install -y $arg > /dev/null
+    fi
+  done
+}
+function link_file {
+  for src; do
+    local srcdir=$(dirname $src)
+    local src=$dothome/$src
+    local dst=$HOME/$srcdir
+    if [[ -d "$dst" ]] ; then
+      dst="$dst/$(basename $src)"
+    fi
+    if [[ ! -e "$dst" ]] ; then
+      echo Create link: $dst
+      ln -s "$src" "$dst"
+    fi
+  done
+}
+function not_included {
+  ! grep "$2" "$1" > /dev/null
+}
+function append_string {
+  local file="$1"
+  local code="$2"
+  echo Append: $file
+  echo "$code" >> "$file"
+}
+function append_if_not_included {
+  local file="$1"
+  local code="$2"
+  if not_included "$file" "$code" ; then
+    append_string "$file" "$code"
+  fi
+}
 
-# Replace backend: https://github.com/chjj/compton/issues/152
-# sudo sed -i 's/backend = "glx"/backend = "xrender"/' /etc/regolith/compton/config
+# Git
+apt_install git
 
-# sudo apt install -y tree
+# .dotfiles
+if [[ ! -e ~/.dotfiles ]] ; then
+  pushd ~
+  git clone https://github.com/anjn/.dotfiles.git
+  popd
+fi
 
-# 
-# sudo apt install -y build-essential valgrind
-# sudo apt install -y htop keepass2 fio hddtemp smartmontools
-# 
-# sudo add-apt-repository -y ppa:alessandro-strada/ppa
-# sudo apt update
-# sudo apt install -y google-drive-ocamlfuse
-# google-drive-ocamlfuse
-# mkdir GoogleDrive
-# google-drive-ocamlfuse GoogleDrive
-# 
-# # Linuxbrew
-# sudo apt install -y linuxbrew-wrapper
-# brew
-# echo 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"' >> ~/.bash_profile
-# echo 'export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"' >> ~/.bash_profile
-# echo 'export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"' >> ~/.bash_profile
-# 
-# wget https://repo.steampowered.com/steam/archive/precise/steam_latest.deb
-# sudo apt install -y steam_latest.deb
+## Regolith Linux
+if not_installed regolith-desktop ; then
+  sudo add-apt-repository -y ppa://kgilmer/regolith-stable
+  sudo apt update
+  sudo apt install -y regolith-desktop
 
-# wget https://github.com/miiton/Cica/releases/download/v5.0.1/Cica_v5.0.1_with_emoji.zip
-# unzip Cica_*.zip
-# mkdir -p ~/.fonts  
-# mv Cica-*.ttf ~/.fonts
-# sudo fc-cache -fv  
-# rm -f Cica_*.zip  
+  link_file .Xresources.d
+  link_file .Xresources-regolith
+  link_file .config/regolith
 
-# sudo apt install -y tmux
-# cp $dir/home_ubuntu/.tmux.conf $HOME
+  # Replace backend: https://github.com/chjj/compton/issues/152
+  sudo sed -i 's/backend = "glx"/backend = "xrender"/' /etc/regolith/compton/config
+fi
 
-# # Neovim
-# sudo apt-get install -y software-properties-common
-# sudo add-apt-repository -y ppa:neovim-ppa/unstable
-# sudo apt-get update
-# sudo apt-get install -y neovim xsel
-# rm -rf $HOME/.config/nvim
-# ln -s $dir/home_ubuntu/.config/nvim $HOME/.config/nvim
-# curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
-# sh ./installer.sh ~/.cache/dein
+apt_install tree
+apt_install build-essential valgrind
+apt_install htop keepass2 fio hddtemp smartmontools
 
-# cat $dir/home_ubuntu/.bashrc_history >> $HOME/.bashrc
-# echo "export PATH=\$HOME/bin:\$PATH" >> $HOME/.bashrc
+# Google drive
+if not_installed google-drive-ocamlfuse ; then
+  sudo add-apt-repository -y ppa:alessandro-strada/ppa
+  sudo apt update
+  sudo apt install -y google-drive-ocamlfuse
+fi
+
+if [[ ! -e ~/GoogleDrive ]] ; then
+  google-drive-ocamlfuse
+  mkdir ~GoogleDrive
+fi
+append_if_not_included $HOME/.bash_profile "google-drive-ocamlfuse GoogleDrive"
+
+# Linuxbrew
+if not_installed linuxbrew-wrapper ; then
+  sudo apt install -y linuxbrew-wrapper
+  brew
+  append_if_not_included $HOME/.bash_profile 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"'
+  append_if_not_included $HOME/.bash_profile 'export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"'
+  append_if_not_included $HOME/.bash_profile 'export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"'
+fi
+
+if not_installed steam-launcher ; then
+  wget https://repo.steampowered.com/steam/archive/precise/steam_latest.deb
+  sudo apt install -y ./steam_latest.deb
+fi
+
+# Fonts
+if [[ ! -e ~/.fonts/Cica-Regular.ttf ]] ; then
+  wget https://github.com/miiton/Cica/releases/download/v5.0.1/Cica_v5.0.1_with_emoji.zip
+  unzip Cica_*.zip
+  mkdir -p ~/.fonts  
+  mv Cica-*.ttf $HOME/.fonts
+  sudo fc-cache -fv  
+fi
+
+# tmux
+apt_install tmux
+link_file .tmux.conf
+
+# Neovim
+apt_install software-properties-common xsel
+if not_installed neovim ; then
+  sudo add-apt-repository -y ppa:neovim-ppa/unstable
+  sudo apt-get update
+  sudo apt-get install -y neovim
+
+  link_file .config/nvim
+  if [[ ! -e ~/.cache/dein ]] ; then
+    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+    sh ./installer.sh ~/.cache/dein
+  fi
+fi
 
 # peco
-# wget https://github.com/peco/peco/releases/download/v0.5.7/peco_linux_amd64.tar.gz
-# tar xf peco_linux_amd64.tar.gz
-# mkdir -p $HOME/bin
-# cp peco_linux_amd64/peco $HOME/bin
+if [[ ! -e $HOME/bin/peco ]] ; then
+  wget https://github.com/peco/peco/releases/download/v0.5.7/peco_linux_amd64.tar.gz
+  tar xf peco_linux_amd64.tar.gz
+  mkdir -p $HOME/bin
+  cp peco_linux_amd64/peco $HOME/bin
+fi
 
 # # git config --global user.name ""
 # # git config --global user.email 
@@ -84,8 +161,8 @@ cd ~/tmp
 # cp .gitconfg $HOME/.gitconfig
 
 # IME
-# sudo apt install fcitx-mozc
-# # Restart, Add 'Mozc' to input method list
+apt_install fcitx-mozc
+# Restart, Add 'Mozc' to input method list
 
 # enhancd
 if [ ! -e ~/.cache/enhancd ] ; then
@@ -95,3 +172,5 @@ if [ ! -e ~/.cache/enhancd ] ; then
   popd
 fi
 
+# bashrc
+append_if_not_included $HOME/.bashrc "source $dir/home_ubuntu/.bashrc"

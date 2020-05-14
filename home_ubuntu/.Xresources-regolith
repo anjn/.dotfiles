@@ -1,0 +1,18 @@
+! This is the Regolith root-level Xresources file.
+!
+! -- Styles - Colors
+#include ".Xresources.d/color"
+
+! -- Styles - Fonts
+#include ".Xresources.d/typeface-cica"
+
+! -- Styles - Theme
+#include ".Xresources.d/theme"
+
+! -- Applications
+#include ".Xresources.d/st-term"
+#include ".Xresources.d/i3-wm"
+#include ".Xresources.d/i3xrocks"
+#include ".Xresources.d/rofi"
+#include ".Xresources.d/gnome"
+

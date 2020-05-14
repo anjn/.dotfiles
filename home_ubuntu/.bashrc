@@ -29,3 +29,6 @@ peco-select-history() {
 }
 bind -x '"\C-r": peco-select-history'
 
+# PATH
+export PATH=$HOME/bin:$PATH
+
