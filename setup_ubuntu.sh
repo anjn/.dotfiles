@@ -139,12 +139,11 @@ if not_installed neovim ; then
   sudo add-apt-repository -y ppa:neovim-ppa/unstable
   sudo apt-get update
   sudo apt-get install -y neovim
-
-  link_file .config/nvim
-  if [[ ! -e ~/.cache/dein ]] ; then
-    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
-    sh ./installer.sh ~/.cache/dein
-  fi
+fi
+link_file .config/nvim
+if [[ ! -e ~/.cache/dein ]] ; then
+  curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+  sh ./installer.sh ~/.cache/dein
 fi
 
 # peco
@@ -154,6 +153,11 @@ if [[ ! -e $HOME/bin/peco ]] ; then
   mkdir -p $HOME/bin
   cp peco_linux_amd64/peco $HOME/bin
 fi
+
+# imwheel
+apt_install imwheel
+link_file .imwheelrc
+link_file .config/autostart/imwheel.desktop
 
 # # git config --global user.name ""
 # # git config --global user.email 
@@ -168,9 +172,9 @@ apt_install fcitx-mozc
 if [ ! -e ~/.cache/enhancd ] ; then
   pushd ~/.cache
   git clone https://github.com/b4b4r07/enhancd
-  echo "source ~/.cache/enhancd/init.sh"  >> ~/.bash_profile
   popd
 fi
+append_if_not_included $HOME/.bash_profile "source ~/.cache/enhancd/init.sh"
 
 # bashrc
 append_if_not_included $HOME/.bashrc "source $dir/home_ubuntu/.bashrc"
