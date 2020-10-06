@@ -30,7 +30,7 @@ function apt_install {
   for arg; do
     if not_installed $arg ; then
       echo Install: $arg
-      sudo apt install -y $arg > /dev/null
+      sudo DEBIAN_FRONTEND=noninteractive apt install -y $arg > /dev/null
     fi
   done
 }
@@ -44,6 +44,7 @@ function link_file {
     fi
     if [[ ! -e "$dst" ]] ; then
       echo Create link: $dst
+      rm -f "$dst"
       ln -s "$src" "$dst"
     fi
   done
@@ -161,8 +162,8 @@ link_file .config/autostart/imwheel.desktop
 
 # # git config --global user.name ""
 # # git config --global user.email 
-# wget https://gist.githubusercontent.com/anjn/650e64455b3d20bbf0d9e96138a4d000/raw/2e4817e53954954bf80bf1ebf7f99e2cb232fe18/.gitconfg
-# cp .gitconfg $HOME/.gitconfig
+wget https://gist.githubusercontent.com/anjn/650e64455b3d20bbf0d9e96138a4d000/raw/2e4817e53954954bf80bf1ebf7f99e2cb232fe18/.gitconfg
+cp .gitconfg $HOME/.gitconfig
 
 # IME
 apt_install fcitx-mozc
