@@ -94,6 +94,12 @@ apt_install tree
 apt_install build-essential valgrind
 apt_install htop keepass2 fio hddtemp smartmontools
 
+# Google Chrome
+if not_installed google-chrome-stable ; then
+  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  sudo apt install -y ./google-chrome-stable_current_amd64.deb
+fi
+
 # Google drive
 if not_installed google-drive-ocamlfuse ; then
   sudo add-apt-repository -y ppa:alessandro-strada/ppa
