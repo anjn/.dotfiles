@@ -90,6 +90,8 @@ if not_installed regolith-desktop ; then
   sudo sed -i 's/backend = "glx"/backend = "xrender"/' /etc/regolith/compton/config
 fi
 
+apt_install gnome-icon-theme
+
 apt_install tree
 apt_install build-essential valgrind
 apt_install htop keepass2 fio hddtemp smartmontools
