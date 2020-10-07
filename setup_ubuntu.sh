@@ -155,7 +155,7 @@ if [[ ! -e ~/.cache/dein ]] ; then
   sh ./installer.sh ~/.cache/dein
 fi
 
-sudo update-alternatives --set editor /usr/bin/nvim
+sudo update-alternatives --set editor /usr/bin/nvim || true
 
 # peco
 if [[ ! -e $HOME/bin/peco ]] ; then
@@ -164,6 +164,7 @@ if [[ ! -e $HOME/bin/peco ]] ; then
   mkdir -p $HOME/bin
   cp peco_linux_amd64/peco $HOME/bin
 fi
+link_file .config/peco
 
 # imwheel
 apt_install imwheel
@@ -172,8 +173,10 @@ link_file .config/autostart/imwheel.desktop
 
 # # git config --global user.name ""
 # # git config --global user.email 
-wget https://gist.githubusercontent.com/anjn/650e64455b3d20bbf0d9e96138a4d000/raw/2e4817e53954954bf80bf1ebf7f99e2cb232fe18/.gitconfg
-cp .gitconfg $HOME/.gitconfig
+if [ ! -e $HOME/.gitconfig ] ; then
+  wget https://gist.githubusercontent.com/anjn/650e64455b3d20bbf0d9e96138a4d000/raw/2e4817e53954954bf80bf1ebf7f99e2cb232fe18/.gitconfg
+  cp .gitconfg $HOME/.gitconfig
+fi
 
 # IME
 apt_install fcitx-mozc
