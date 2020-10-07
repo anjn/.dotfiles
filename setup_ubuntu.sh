@@ -147,6 +147,8 @@ if [[ ! -e ~/.cache/dein ]] ; then
   sh ./installer.sh ~/.cache/dein
 fi
 
+sudo update-alternatives --set editor /usr/bin/nvim
+
 # peco
 if [[ ! -e $HOME/bin/peco ]] ; then
   wget https://github.com/peco/peco/releases/download/v0.5.7/peco_linux_amd64.tar.gz
