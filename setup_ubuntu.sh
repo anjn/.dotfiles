@@ -187,3 +187,6 @@ append_if_not_included $HOME/.bash_profile "source ~/.cache/enhancd/init.sh"
 
 # bashrc
 append_if_not_included $HOME/.bashrc "source $dir/home_ubuntu/.bashrc"
+
+# Vitis
+apt_install opencl-headers
