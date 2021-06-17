@@ -1,70 +1,8 @@
-#!/usr/bin/env bash
-#set -xe
-set -e
-
-dir=$(dirname $(readlink -f $0))
-dothome=$dir/home_ubuntu
+inspect_args
 
 # Update
 sudo apt update
 sudo apt upgrade -y
-
-# Create tmp directory
-tmp=$(mktemp -d)
-function rm_tmp {
-  [[ -e "$tmp" ]] && rm -rf "$tmp"
-}
-trap rm_tmp EXIT
-trap 'trap - EXIT; rm_tmp; exit -1' INT PIPE TERM
-cd $tmp
-
-# List installed packages
-installed=$tmp/installed
-apt list --installed > $installed
-
-# Utilities
-function not_installed {
-  ! grep -e "^$1/" $installed > /dev/null
-}
-function apt_install {
-  for arg; do
-    if not_installed $arg ; then
-      echo Install: $arg
-      sudo DEBIAN_FRONTEND=noninteractive apt install -y $arg > /dev/null
-    fi
-  done
-}
-function link_file {
-  for src; do
-    local srcdir=$(dirname $src)
-    local src=$dothome/$src
-    local dst=$HOME/$srcdir
-    if [[ -d "$dst" ]] ; then
-      dst="$dst/$(basename $src)"
-    fi
-    if [[ ! -e "$dst" ]] ; then
-      echo Create link: $dst
-      rm -f "$dst"
-      ln -s "$src" "$dst"
-    fi
-  done
-}
-function not_included {
-  ! grep "$2" "$1" > /dev/null
-}
-function append_string {
-  local file="$1"
-  local code="$2"
-  echo Append: $file
-  echo "$code" >> "$file"
-}
-function append_if_not_included {
-  local file="$1"
-  local code="$2"
-  if not_included "$file" "$code" ; then
-    append_string "$file" "$code"
-  fi
-}
 
 # Disable capslock
 sudo sed -i 's/\(XKBOPTIONS\).*/\1="ctrl:nocaps"/' /etc/default/keyboard
@@ -139,10 +77,6 @@ if not_installed regolith-desktop-standard ; then
   sudo apt update
   sudo apt install -y regolith-desktop-standard
 
-  #link_file .Xresources.d
-  #link_file .Xresources-regolith
-  #link_file .config/regolith
-
   # Replace backend: https://github.com/chjj/compton/issues/152
   #sudo sed -i 's/backend = "glx"/backend = "xrender"/' /etc/regolith/compton/config
 
@@ -162,6 +96,7 @@ fi
 apt_install tree
 apt_install build-essential valgrind
 apt_install htop keepass2 fio hddtemp smartmontools
+apt_install ruby ethtool
 
 # # Google drive
 # if not_installed google-drive-ocamlfuse ; then
@@ -202,7 +137,7 @@ if [ ! -e $HOME/.gitconfig ] ; then
 fi
 
 # bashrc
-append_if_not_included $HOME/.bashrc "source $dir/home_ubuntu/.bashrc"
+append_if_not_included $HOME/.bashrc "source $dothome/.bashrc"
 
 # Vitis
 apt_install opencl-headers
