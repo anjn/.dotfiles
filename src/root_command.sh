@@ -97,6 +97,7 @@ apt_install tree
 apt_install build-essential valgrind
 apt_install htop keepass2 fio hddtemp smartmontools
 apt_install ruby ethtool
+apt_install dkms alien ethtool
 
 # # Google drive
 # if not_installed google-drive-ocamlfuse ; then
