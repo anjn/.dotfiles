@@ -6,8 +6,8 @@ dir=$(dirname $(readlink -f $0))
 dothome=$dir/home_ubuntu
 
 # Update
-#sudo apt update
-#sudo apt upgrade -y
+sudo apt update
+sudo apt upgrade -y
 
 # Create tmp directory
 tmp=$(mktemp -d)
@@ -65,6 +65,9 @@ function append_if_not_included {
     append_string "$file" "$code"
   fi
 }
+
+# Disable capslock
+sudo sed -i 's/\(XKBOPTIONS\).*/\1="ctrl:nocaps"/' /etc/default/keyboard
 
 # Git
 apt_install git curl
@@ -145,10 +148,8 @@ if not_installed regolith-desktop-standard ; then
 
   apt_install i3xrocks-battery
 
-  echo "i3-wm.bar.position:	top" >> ~/.config/regolith/Xresources
-  echo "i3-wm.bar.trayoutput:	primary" >> ~/.config/regolith/Xresources
-  echo "i3-wm-mod: Mod1" >> ~/.config/regolith/Xresources
-  echo "i3-wm-alt: Mod4" >> ~/.config/regolith/Xresources
+  mkdir -p ~/.config/regolith
+  link_file .config/regolith/Xresources
 fi
 
 # Google Chrome
@@ -162,18 +163,17 @@ apt_install tree
 apt_install build-essential valgrind
 apt_install htop keepass2 fio hddtemp smartmontools
 
-# Google drive
-if not_installed google-drive-ocamlfuse ; then
-  sudo add-apt-repository -y ppa:alessandro-strada/ppa
-  sudo apt update
-  sudo apt install -y google-drive-ocamlfuse
-fi
-
-if [[ ! -e ~/GoogleDrive ]] ; then
-  google-drive-ocamlfuse
-  mkdir ~/GoogleDrive
-fi
-#append_if_not_included $HOME/.bash_profile "google-drive-ocamlfuse GoogleDrive"
+# # Google drive
+# if not_installed google-drive-ocamlfuse ; then
+#   sudo add-apt-repository -y ppa:alessandro-strada/ppa
+#   sudo apt update
+#   sudo apt install -y google-drive-ocamlfuse
+# fi
+# 
+# if [[ ! -e ~/GoogleDrive ]] ; then
+#   google-drive-ocamlfuse
+#   mkdir ~/GoogleDrive
+# fi
 
 # Linuxbrew
 #if not_installed linuxbrew-wrapper ; then
@@ -184,10 +184,10 @@ fi
 #  append_if_not_included $HOME/.bash_profile 'export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"'
 #fi
 
-if not_installed steam-launcher ; then
-  wget https://repo.steampowered.com/steam/archive/precise/steam_latest.deb
-  sudo apt install -y ./steam_latest.deb
-fi
+#if not_installed steam-launcher ; then
+#  wget https://repo.steampowered.com/steam/archive/precise/steam_latest.deb
+#  sudo apt install -y ./steam_latest.deb
+#fi
 
 # imwheel
 #apt_install imwheel
