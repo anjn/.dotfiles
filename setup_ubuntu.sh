@@ -215,3 +215,10 @@ fi
 sudo n lts
 sudo apt purge -y nodejs npm || true
 sudo apt autoremove -y
+
+# Disable apt-daily, apt-daily-upgrade
+sudo systemctl mask apt-daily.service
+sudo systemctl mask apt-daily.timer
+sudo systemctl mask apt-daily-upgrade.service
+sudo systemctl mask apt-daily-upgrade.timer
+
