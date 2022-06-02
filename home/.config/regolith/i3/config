@@ -17,7 +17,8 @@ set $compton_config /etc/regolith/compton/config
 #set $compton_config ../compton/config
 
 # path to terminal. Override this to specify a custom terminal.
-set $terminal_path /usr/bin/st
+#set $terminal_path /usr/bin/st
+set $terminal_path /usr/local/bin/alacritty
 
 # Color values are defined in ~/.Xresources-regolith
 # These are the labels which define each i3 workspace.
@@ -196,12 +197,12 @@ bindsym $mod+Shift+s exec systemctl suspend
 
 # shortcuts for common system configuration tasks
 bindsym $mod+c exec gnome-control-center
-bindsym $mod+w exec gnome-control-center wifi
-bindsym $mod+b exec gnome-control-center bluetooth
-bindsym $mod+d exec gnome-control-center display
-bindsym $mod+n exec gnome-control-center network
-bindsym $mod+p exec gnome-control-center power
-bindsym $mod+s exec gnome-control-center sound
+#bindsym $mod+w exec gnome-control-center wifi
+#bindsym $mod+b exec gnome-control-center bluetooth
+#bindsym $mod+d exec gnome-control-center display
+#bindsym $mod+n exec gnome-control-center network
+#bindsym $mod+p exec gnome-control-center power
+#bindsym $mod+s exec gnome-control-center sound
 
 # resize window (you can also use the mouse for that)
 mode "Resize Mode" {

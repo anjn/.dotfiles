@@ -151,3 +151,5 @@ fi
 sudo n lts
 sudo apt purge -y nodejs npm || true
 sudo apt autoremove -y
+
+link_file .ExifTool_config
