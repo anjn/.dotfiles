@@ -29,17 +29,14 @@ if not_installed neovim ; then
   sudo apt-get install -y neovim
 fi
 link_file .config/nvim
-if [[ ! -e ~/.cache/dein ]] ; then
-  curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
-  sh ./installer.sh ~/.cache/dein
-fi
 
-sudo update-alternatives --set editor /usr/bin/nvim || true
+sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 50
+sudo update-alternatives --set editor /usr/bin/nvim
 sudo apt purge -y nano || true
 
 # Fonts
 if [[ ! -e ~/.fonts/Cica-Regular.ttf ]] ; then
-  wget https://github.com/miiton/Cica/releases/download/v5.0.2/Cica_v5.0.2_with_emoji.zip
+  wget https://github.com/miiton/Cica/releases/download/v5.0.3/Cica_v5.0.3.zip
   unzip Cica_*.zip
   mkdir -p ~/.fonts  
   mv Cica-*.ttf $HOME/.fonts
