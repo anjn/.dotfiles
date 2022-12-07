@@ -4,7 +4,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'vim-jp/vimdoc-ja'
 Plug 'junegunn/fzf', {'dir': '~/.fzf_bin', 'do': './install --all'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern.vim', {'branch': 'main'}
 Plug 'lambdalisue/gina.vim'
 Plug 'nvim-treesitter/nvim-treesitter'
 " Plug 'sainnhe/gruvbox-material'
@@ -32,7 +32,17 @@ nmap     z        [ff]
 xmap     z        [ff]
 
 "" coc.nvim
-let g:coc_global_extensions = ['coc-tsserver', 'coc-eslint8', 'coc-prettier', 'coc-git', 'coc-fzf-preview', 'coc-lists']
+let g:coc_global_extensions = [
+            \ 'coc-tsserver',
+            \ 'coc-eslint8',
+            \ 'coc-prettier',
+            \ 'coc-git',
+            \ 'coc-fzf-preview',
+            \ 'coc-lists',
+            \ 'coc-jedi',
+            \ 'coc-cmake',
+            \ 'coc-sh',
+            \]
 
 inoremap <silent> <expr> <C-Space> coc#refresh()
 nnoremap <silent> K       :<C-u>call <SID>show_documentation()<CR>

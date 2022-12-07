@@ -30,9 +30,14 @@ if not_installed neovim ; then
 fi
 link_file .config/nvim
 
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 50
 sudo update-alternatives --set editor /usr/bin/nvim
 sudo apt purge -y nano || true
+
+apt_install clang ccls bear
 
 # Fonts
 if [[ ! -e ~/.fonts/Cica-Regular.ttf ]] ; then

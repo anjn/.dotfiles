@@ -13,8 +13,8 @@ stty stop undef
 stty start undef
 
 # History
-export HISTSIZE=100000
-export HISTFILESIZE=100000
+export HISTSIZE=1000000
+export HISTFILESIZE=1000000
 export HISTCONTROL=ignorespace:erasedups
 #export HISTIGNORE='pwd:ls:ls *:ll:w:top:df *'
 export PROMPT_COMMAND='history -n; history -w; history -c; history -r'
