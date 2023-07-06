@@ -1,0 +1,34 @@
+[color]
+    ui = auto
+[alias]
+    push = push --recurse-submodules=check
+    st = status -sb
+    s = status -sb --ignore-submodules
+    b = branch -a -vv
+    co = checkout
+    d = diff --ignore-submodules
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    subup = submodule update --init --recursive
+    subadd = submodule add
+    l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    la = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+[core]
+    editor = vim -X -c \"set fenc=utf-8\"
+    preloadindex = true
+    fscache = true
+    autocrlf = false
+[push]
+    default = simple
+[http]
+    sslVerify = false
+[diff]
+    algorithm = histogram
+[pager]
+    show = diff-highlight | less
+    log = diff-highlight | less
+    diff = diff-highlight | less
+[init]
+        defaultBranch = main
+[user]
+        email = jun.ando@amd.com
+        name = Jun Ando

@@ -1,0 +1,13 @@
+---
+- hosts: all
+  tasks:
+    - name: Install packages
+      ansible.builtin.apt:
+        pkg:
+          - fcitx-mozc
+          - flameshot
+          - xsel
+        state: present
+        update_cache: false
+
+

@@ -1,0 +1,17 @@
+---
+- hosts: all
+  tasks:
+    # tmux
+    - name: Create directory
+      ansible.builtin.file:
+        path: ~/.config/regolith2
+        state: directory
+
+    - name: Copy Xresources
+      ansible.builtin.copy:
+        src: ./files/regolith2/Xresources
+        dest: ~/.config/regolith2/Xresources
+
+    - name: Set look
+      shell: "regolith-look set ayu-dark || true"
+

@@ -1,0 +1,17 @@
+i3-wm.mod: Mod1
+i3-wm.alt: Mod4
+
+i3-wm.bar.position: top
+i3-wm.bar.trayoutput: primary
+
+gnome.terminal.font: HackGen Console NF 18
+
+i3-wm.bar.font: HackGen Console NF 16
+i3xrocks.value.font: HackGen Console NF 16
+
+i3-wm.bar.workspace.active.text.color:   #CCCCCC
+i3-wm.bar.workspace.inactive.text.color: #CCCCCC
+i3-wm.bar.workspace.focused.text.color:  #CCCCCC
+i3-wm.bar.workspace.urgent.text.color:   #CCCCCC
+i3xrocks.label.color: #99AAEE
+i3xrocks.value.color: #CCCCCC

@@ -1,0 +1,67 @@
+---
+- hosts: all
+  tasks:
+    # tmux
+    - name: Create directory
+      ansible.builtin.file:
+        path: ~/.config/tmux
+        state: directory
+
+    - name: Copy tmux.conf
+      ansible.builtin.copy:
+        src: ./files/tmux/tmux.conf
+        dest: ~/.config/tmux/tmux.conf
+
+    # peco
+    - name: Create directory
+      ansible.builtin.file:
+        path: ~/.config/peco
+        state: directory
+
+    - name: Copy peco config.json
+      ansible.builtin.copy:
+        src: ./files/peco/config.json
+        dest: ~/.config/peco/config.json
+
+    # diff-highlight
+    - name: Install diff-highlight
+      ansible.builtin.pip:
+        name: diff-highlight
+
+    # git
+    - name: Copy .gitconfig
+      ansible.builtin.copy:
+        src: ./files/.gitconfig
+        dest: ~/.gitconfig
+
+    # exiftool
+    - name: Copy .ExifTool_config
+      ansible.builtin.copy:
+        src: ./files/.ExifTool_config
+        dest: ~/.ExifTool_config
+
+
+    # .profile
+    - name: Update .profile
+      ansible.builtin.blockinfile:
+        path: ~/.profile
+        block: |
+          export PATH=$HOME/.local/bin:$PATH
+
+    # .bash_profile
+    - name: Create bash_profile
+      ansible.builtin.file:
+        path: ~/.bash_profile
+        state: touch
+
+    - name: Update bash_profile for sourcing enhancd/init.sh
+      ansible.builtin.blockinfile:
+        path: ~/.bash_profile
+        block: "source /opt/enhancd/init.sh"
+
+    # .bashrc
+    - name: Update bashrc
+      ansible.builtin.blockinfile:
+        path: ~/.bashrc
+        block: "{{ lookup('ansible.builtin.file', './files/.bashrc') }}"
+

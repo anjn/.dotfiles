@@ -1,0 +1,40 @@
+---
+- hosts: all
+  tasks:
+    - name: Add Apt signing key
+      ansible.builtin.get_url:
+        url: https://regolith-desktop.org/regolith.key
+        dest: /etc/apt/keyrings/regolith.asc
+
+    - name: Add repository into sources list
+      ansible.builtin.apt_repository:
+        repo: deb [arch=amd64 signed-by=/etc/apt/keyrings/regolith.asc] https://regolith-desktop.org/release-ubuntu-jammy-amd64 jammy main
+        state: present
+        filename: regolith
+    
+    - name: Install regolith
+      ansible.builtin.apt:
+        pkg:
+          - regolith-desktop
+          - regolith-compositor-picom-glx
+        state: present
+        update_cache: true
+
+    - name: Install regolith look
+      ansible.builtin.apt:
+        pkg:
+          - regolith-look-ayu-dark
+        state: present
+
+    - name: Install regolith packages
+      ansible.builtin.apt:
+        pkg:
+          - regolith-i3-navigation
+        state: present
+
+    - name: Remove regolith packages
+      ansible.builtin.apt:
+        pkg:
+          - regolith-i3-next-workspace
+        state: absent
+

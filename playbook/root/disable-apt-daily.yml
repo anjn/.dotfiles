@@ -1,0 +1,14 @@
+---
+- hosts: all
+  tasks:
+    - name: Disable apt-daily
+      systemd:
+        name: "{{ item }}"
+        state: stopped
+        masked: true
+      with_items:
+        - apt-daily.service
+        - apt-daily.timer
+        - apt-daily-upgrade.service
+        - apt-daily-upgrade.timer
+

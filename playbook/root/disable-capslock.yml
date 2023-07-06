@@ -1,0 +1,9 @@
+---
+- hosts: all
+  tasks:
+    - name: Disable capslock
+      ansible.builtin.replace:
+        path: /etc/default/keyboard
+        regexp: '^(XKBOPTIONS).*'
+        replace: '\1="ctrl:nocaps"'
+

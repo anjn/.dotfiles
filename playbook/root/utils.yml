@@ -1,0 +1,35 @@
+---
+- hosts: all
+  tasks:
+    - name: Install utilities
+      ansible.builtin.apt:
+        pkg:
+          - curl
+          - git
+          - htop
+          - keepass2
+          - libimage-exiftool-perl
+          - neovim
+          - nfs-common
+          - peco
+          - rclone
+          - ruby
+          - software-properties-common
+          - tig
+          - tmux
+          - tree
+        state: present
+        update_cache: false
+
+    - name: Remove utilities
+      ansible.builtin.apt:
+        name: nano
+        state: absent
+        update_cache: false
+
+    - name: Install enhancd
+      ansible.builtin.git:
+        repo: 'https://github.com/b4b4r07/enhancd.git'
+        dest: /opt/enhancd
+        update: no
+
