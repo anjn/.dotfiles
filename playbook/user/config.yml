@@ -24,9 +24,16 @@
         dest: ~/.config/peco/config.json
 
     # diff-highlight
-    - name: Install diff-highlight
-      ansible.builtin.pip:
-        name: diff-highlight
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: ~/.local/bin
+        state: directory
+
+    - name: Copy diff-highlight
+      ansible.builtin.copy:
+        src: /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+        dest: ~/.local/bin/diff-highlight
+        mode: '755'
 
     # git
     - name: Copy .gitconfig

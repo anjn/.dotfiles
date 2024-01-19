@@ -6,7 +6,7 @@
         pkg:
           - fcitx-mozc
           - flameshot
-          - xsel
+          - xclip
         state: present
         update_cache: false
 

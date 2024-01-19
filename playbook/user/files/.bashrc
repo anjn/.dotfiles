@@ -13,13 +13,24 @@ unset color_prompt force_color_prompt
 stty stop undef
 stty start undef
 
+export PATH=~/.local/bin:$PATH
+
 # History
-export HISTSIZE=1000000
-export HISTFILESIZE=1000000
+export HISTSIZE=100000
+export HISTFILESIZE=100000
 export HISTCONTROL=ignorespace:erasedups
-#export HISTIGNORE='pwd:ls:ls *:ll:w:top:df *'
-#export PROMPT_COMMAND='history -n; history -w; history -c; history -r'
-#shopt -u histappend
+
+# https://qiita.com/piroor/items/7c9380e408d07fd83bfc
+function share_history {
+  history -a
+  tac ~/.bash_history | awk '!a[$0]++' | tac > ~/.bash_history.tmp
+  [ -f ~/.bash_history.tmp ] &&
+    mv ~/.bash_history{.tmp,} &&
+    history -c &&
+    history -r
+}
+PROMPT_COMMAND='share_history'
+shopt -u histappend
 
 # search history
 peco-select-history() {

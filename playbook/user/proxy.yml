@@ -1,0 +1,26 @@
+---
+- hosts: all
+  tasks:
+    - name: Proxy setting
+      ansible.builtin.blockinfile:
+        path: ~/.bashrc
+        marker: "# {mark} ANSIBLE MANAGED BLOCK PROXY"
+        block: |
+          # http://<id>:<password>@X.X.X.X:<port番号>
+          _PROXY=http://192.168.1.200:3128
+          
+          # httpおよびhttpsを使う際に参照するプロキシのURLを指定する
+          export http_proxy=${_PROXY}
+          export https_proxy=${_PROXY}
+          
+          # localhostやプロキシ内(社内イントラなど)に存在し、プロキシを経由させるべきでないものを指定する
+          export no_proxy=localhost,127.0.0.1
+          
+          # linuxだとたいてい環境変数名は小文字で動作するが、稀に大文字を参照するものがあった気もするので一応設定
+          export HTTP_PROXY=${http_proxy}
+          export HTTPS_PROXY=${https_proxy}
+          export NO_PROXY=${no_proxy}
+          
+          unset _PROXY
+          
+          export PATH=~/.local/bin:$PATH
