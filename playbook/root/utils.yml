@@ -5,6 +5,7 @@
       ansible.builtin.apt:
         pkg:
           - curl
+          - exfat-fuse
           - git
           - htop
           - keepass2
@@ -12,7 +13,9 @@
           - neovim
           - nfs-common
           - peco
+          - ranger
           - rclone
+          - remmina
           - ruby
           - software-properties-common
           - tig
