@@ -1,0 +1,10 @@
+---
+- hosts: all
+  tasks:
+    # neovim
+    - name: Create a symbolic link to nvim
+      ansible.builtin.file:
+        src: "{{ playbook_dir }}/files/nvim"
+        dest: ~/.config/nvim
+        state: link
+

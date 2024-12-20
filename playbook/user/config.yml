@@ -1,71 +1,37 @@
 ---
 - hosts: all
   tasks:
-    # tmux
-    - name: Create directory
+    # ~/.config
+    - name: Create symbolic links to config directories
       ansible.builtin.file:
-        path: ~/.config/tmux
-        state: directory
+        src: "{{ playbook_dir }}/files/{{ item }}"
+        dest: "~/.config/{{ item }}"
+        state: link
+      loop:
+        - tmux
+        - peco
 
-    - name: Copy tmux.conf
-      ansible.builtin.copy:
-        src: ./files/tmux/tmux.conf
-        dest: ~/.config/tmux/tmux.conf
-
-    # peco
-    - name: Create directory
+    # ~/
+    - name: Create a symbolic link to files
       ansible.builtin.file:
-        path: ~/.config/peco
-        state: directory
-
-    - name: Copy peco config.json
-      ansible.builtin.copy:
-        src: ./files/peco/config.json
-        dest: ~/.config/peco/config.json
-
-    # diff-highlight
-    - name: Create a directory if it does not exist
-      ansible.builtin.file:
-        path: ~/.local/bin
-        state: directory
-
-    - name: Copy diff-highlight
-      ansible.builtin.copy:
-        src: /usr/share/doc/git/contrib/diff-highlight/diff-highlight
-        dest: ~/.local/bin/diff-highlight
-        mode: '755'
-
-    # git
-    - name: Copy .gitconfig
-      ansible.builtin.copy:
-        src: ./files/.gitconfig
-        dest: ~/.gitconfig
-
-    # exiftool
-    - name: Copy .ExifTool_config
-      ansible.builtin.copy:
-        src: ./files/.ExifTool_config
-        dest: ~/.ExifTool_config
-
-
-    # .profile
-    - name: Update .profile
-      ansible.builtin.blockinfile:
-        path: ~/.profile
-        block: |
-          export PATH=$HOME/.local/bin:$PATH
-
+        src: "{{ playbook_dir }}/files/{{ item }}"
+        dest: "~/{{ item }}"
+        state: link
+      loop:
+        - .gitconfig
+        - .ExifTool_config
+    
     # .bash_profile
     - name: Create bash_profile
       ansible.builtin.file:
         path: ~/.bash_profile
         state: touch
-
+    
     - name: Update bash_profile for sourcing enhancd/init.sh
       ansible.builtin.blockinfile:
         path: ~/.bash_profile
         block: "source /opt/enhancd/init.sh"
-
+    
     # .bashrc
     - name: Update bashrc
       ansible.builtin.blockinfile:

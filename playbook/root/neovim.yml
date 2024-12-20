@@ -1,0 +1,32 @@
+---
+- hosts: all
+  tasks:
+    # lazygit
+    - name: Install lazygit
+      ansible.builtin.unarchive:
+        src: "https://github.com/jesseduffield/lazygit/releases/download/v0.44.1/lazygit_0.44.1_Linux_x86_64.tar.gz"
+        dest: /usr/local/bin
+        extra_opts:
+          - lazygit
+        remote_src: yes
+        owner: root
+        group: root
+        mode: '0755'
+
+    # lazygit
+    - name: Install neovim
+      ansible.builtin.get_url:
+        url: https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+        dest: /usr/local/bin/nvim
+        mode: '0755'
+        checksum: sha256:https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage.sha256sum
+
+    - name: Install neovim dependencies
+      ansible.builtin.apt:
+        pkg:
+          - ripgrep
+          - build-essential
+          - cmake
+          - libfuse2t64 # for AppImage
+        state: present
+        update_cache: false

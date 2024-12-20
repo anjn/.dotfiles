@@ -1,0 +1,10 @@
+---
+- hosts: all
+  tasks:
+    - name: Install file system utilities
+      ansible.builtin.apt:
+        pkg:
+          - exfat-fuse
+          - nfs-common
+        state: present
+        update_cache: false

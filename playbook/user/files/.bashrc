@@ -13,8 +13,6 @@ unset color_prompt force_color_prompt
 stty stop undef
 stty start undef
 
-export PATH=~/.local/bin:$PATH
-
 # History
 export HISTSIZE=100000
 export HISTFILESIZE=100000
