@@ -13,19 +13,20 @@
         group: root
         mode: '0755'
 
-    # lazygit
+    # neovim
     - name: Install neovim
       ansible.builtin.get_url:
-        url: https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+        url: https://github.com/neovim/neovim/releases/download/v0.11.5/nvim-linux-x86_64.appimage
         dest: /usr/local/bin/nvim
         mode: '0755'
-        checksum: sha256:https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage.sha256sum
+        #checksum: sha256:https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage.sha256sum
 
     - name: Install neovim dependencies
       ansible.builtin.apt:
         pkg:
           - ripgrep
           - build-essential
+          - clangd
           - cmake
           - libfuse2t64 # for AppImage
         state: present

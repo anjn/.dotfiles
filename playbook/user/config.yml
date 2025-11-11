@@ -21,15 +21,15 @@
         - .gitconfig
         - .ExifTool_config
     
-    # .bash_profile
-    - name: Create bash_profile
+    # .profile
+    - name: Create .profile
       ansible.builtin.file:
-        path: ~/.bash_profile
+        path: ~/.profile
         state: touch
     
-    - name: Update bash_profile for sourcing enhancd/init.sh
+    - name: Update .profile for sourcing enhancd/init.sh
       ansible.builtin.blockinfile:
-        path: ~/.bash_profile
+        path: ~/.profile
         block: "source /opt/enhancd/init.sh"
     
     # .bashrc

@@ -9,7 +9,6 @@
           - htop
           - libimage-exiftool-perl
           - neovim
-          - peco
           - ranger
           - rclone
           - ruby
@@ -19,6 +18,19 @@
           - tree
         state: present
         update_cache: false
+
+    - name: Install peco
+      ansible.builtin.unarchive:
+        src: "https://github.com/peco/peco/releases/download/v0.5.11/peco_linux_amd64.tar.gz"
+        dest: /usr/local/bin
+        include:
+          - peco_linux_amd64/peco
+        extra_opts:
+          - --strip-components=1
+        remote_src: yes
+        owner: root
+        group: root
+        mode: '0755'
 
     - name: Remove utilities
       ansible.builtin.apt:

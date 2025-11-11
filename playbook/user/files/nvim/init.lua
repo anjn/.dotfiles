@@ -29,6 +29,7 @@ require('jetpack.packer').add {
     -- mason
     {
         'williamboman/mason.nvim',
+        version = "^1.0.0",
         config = function()
             require('mason').setup()
         end,
@@ -37,6 +38,7 @@ require('jetpack.packer').add {
     -- mason-lspconfig
     {
         'williamboman/mason-lspconfig.nvim',
+        version = "^1.0.0",
         depends = { 'neovim/nvim-lspconfig', 'hrsh7th/cmp-nvim-lsp' },
         config = function()
             require("mason-lspconfig").setup {
@@ -66,11 +68,11 @@ require('jetpack.packer').add {
         'neovim/nvim-lspconfig',
         depends = 'williamboman/mason.nvim',
         config = function()
-            require('lspconfig').clangd.setup {
+            vim.lsp.config('clangd', {
                 filetypes = { "c", "cpp", "hpp" },
-            }
-            require('lspconfig').pyright.setup {}
-            require('lspconfig').verible.setup{
+            })
+            vim.lsp.config('pyright', {})
+            vim.lsp.config('verible', {
                 cmd = {
                     '/home/jun/.local/bin/verible-verilog-ls',
                     '--rules_config_search',
@@ -81,7 +83,7 @@ require('jetpack.packer').add {
                     '--named_port_alignment=preserve',
                     '--port_declarations_alignment=align',
                 },
-            }
+            })
         end,
     },
     -- nvim-cmp
