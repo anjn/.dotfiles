@@ -1,0 +1,10 @@
+---
+- hosts: all
+  tasks:
+    - name: Install GUI utilities
+      ansible.builtin.apt:
+        pkg:
+          - keepass2
+          - remmina
+        state: present
+        update_cache: false

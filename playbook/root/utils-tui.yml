@@ -1,21 +1,16 @@
 ---
 - hosts: all
   tasks:
-    - name: Install utilities
+    - name: Install TUI utilities
       ansible.builtin.apt:
         pkg:
           - curl
-          - exfat-fuse
           - git
           - htop
-          - keepass2
           - libimage-exiftool-perl
           - neovim
-          - nfs-common
-          - peco
           - ranger
           - rclone
-          - remmina
           - ruby
           - software-properties-common
           - tig
@@ -23,6 +18,19 @@
           - tree
         state: present
         update_cache: false
+
+    - name: Install peco
+      ansible.builtin.unarchive:
+        src: "https://github.com/peco/peco/releases/download/v0.5.11/peco_linux_amd64.tar.gz"
+        dest: /usr/local/bin
+        include:
+          - peco_linux_amd64/peco
+        extra_opts:
+          - --strip-components=1
+        remote_src: yes
+        owner: root
+        group: root
+        mode: '0755'
 
     - name: Remove utilities
       ansible.builtin.apt:
@@ -35,4 +43,10 @@
         repo: 'https://github.com/b4b4r07/enhancd.git'
         dest: /opt/enhancd
         update: no
+
+    - name: Copy diff-highlight
+      ansible.builtin.copy:
+        src: /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+        dest: /usr/local/bin/diff-highlight
+        mode: '755'
 
