@@ -29,6 +29,7 @@
           - build-essential
           - clangd
           - cmake
+          - fd-find
         state: present
         update_cache: false
 

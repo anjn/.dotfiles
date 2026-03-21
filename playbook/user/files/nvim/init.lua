@@ -11,180 +11,120 @@ vim.cmd [[ set updatetime=100 ]]
 
 vim.cmd('packadd vim-jetpack')
 require('jetpack.packer').add {
+    -- Plugin manager
     { 'tani/vim-jetpack', opt = 1 },
-    'junegunn/fzf.vim',
-    'MunifTanjim/nui.nvim',
-    -- colorscheme
+
+    -- Color schemes
     'EdenEast/nightfox.nvim',
+
+    -- Status line
+    'nvim-lualine/lualine.nvim',
+
+    -- Display
     {
-        'folke/tokyonight.nvim',
+        'lewis6991/gitsigns.nvim',
         config = function()
-            require("tokyonight").setup {
-                style = "night",
+            require('gitsigns').setup {}
+        end,
+    },
+  
+    'myusuf3/numbers.vim',
+
+    {
+        'petertriho/nvim-scrollbar',
+        config = function()
+            require("scrollbar").setup {
+                excluded_buftypes = {
+                    "terminal",
+                },
+                excluded_filetypes = {
+                    "prompt",
+                    "TelescopePrompt",
+                    "noice",
+                    "neo-tree",
+                    "aerial",
+                },
             }
-        end
-    },
-    { "bluz71/vim-moonfly-colors", as = "moonfly" },
-    'jacoborus/tender.vim',
-    -- mason
-    {
-        'williamboman/mason.nvim',
-        version = "^1.0.0",
-        config = function()
-            require('mason').setup()
-        end,
-        run = { ':MasonUpdate', ':LspInstall pyright' },
-    },
-    -- mason-lspconfig
-    {
-        'williamboman/mason-lspconfig.nvim',
-        version = "^1.0.0",
-        depends = { 'neovim/nvim-lspconfig', 'hrsh7th/cmp-nvim-lsp' },
-        config = function()
-            require("mason-lspconfig").setup {
-                automatic_installation = true,
-            }
-            require('mason-lspconfig').setup_handlers({ function(server)
-                require('lspconfig')[server].setup {
-                    on_attach = function(client, bufnr)
-                        local bufopts = { noremap=true, silent=true, buffer=bufnr }
-                        vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-                        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-                        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-                        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-                        vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-                        vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
-                        vim.keymap.set('n', 'gn', vim.lsp.buf.rename, bufopts)
-                        vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, bufopts)
-                        vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
-                    end,
-                    capabilities = require('cmp_nvim_lsp').default_capabilities()
-                }
-            end })
-        end,
-    },
-    -- lspconfig
-    {
-        'neovim/nvim-lspconfig',
-        depends = 'williamboman/mason.nvim',
-        config = function()
-            vim.lsp.config('clangd', {
-                filetypes = { "c", "cpp", "hpp" },
-            })
-            vim.lsp.config('pyright', {})
-            vim.lsp.config('verible', {
-                cmd = {
-                    '/home/jun/.local/bin/verible-verilog-ls',
-                    '--rules_config_search',
-                    '--column_limit=100',
-                    '--indentation_spaces=4',
-                    '--assignment_statement_alignment=align',
-                    '--named_parameter_alignment=align',
-                    '--named_port_alignment=preserve',
-                    '--port_declarations_alignment=align',
-                },
-            })
-        end,
-    },
-    -- nvim-cmp
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-path',
-    'hrsh7th/cmp-cmdline',
-    'hrsh7th/cmp-nvim-lsp-signature-help',
-    {
-        'hrsh7th/nvim-cmp',
-        depends = { 'onsails/lspkind.nvim' },
-        config = function()
-            local cmp = require'cmp'
-            local lspkind = require('lspkind')
-            
-            cmp.setup({
-                snippet = {
-                    expand = function(args)
-                        vim.fn["vsnip#anonymous"](args.body)
-                    end,
-                },
-                window = {
-                    completion = cmp.config.window.bordered(),
-                    documentation = cmp.config.window.bordered(),
-                },
-                mapping = cmp.mapping.preset.insert({
-                    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                    ['<C-Space>'] = cmp.mapping.complete(),
-                    ['<C-e>'] = cmp.mapping.abort(),
-                    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-                }),
-                sources = {
-                    { name = 'nvim_lsp' },
-                    { name = 'vsnip' },
-                    { name = 'buffer' },
-                    { name = 'path' },
-                    { name = 'nvim_lsp_signature_help' },
-                },
-                formatting = {
-                    format = lspkind.cmp_format({})
-                },
-            })
-        end,
-    },
-    
-    -- vsnip
-    'hrsh7th/cmp-vsnip',
-    'hrsh7th/vim-vsnip',
-    -- lspsaga
-    "nvim-tree/nvim-web-devicons",
-    {
-        'nvim-treesitter/nvim-treesitter',
-        config = function()
-            require'nvim-treesitter.configs'.setup {
-                ensure_installed = { 'markdown', 'markdown_inline', 'vimdoc', 'lua' },
-                auto_install = true,
-            }
-        end,
-        run = ':TSUpdate'
-    },
-    {
-        "glepnir/lspsaga.nvim",
-        opt = true,
-        branch = "main",
-        event = "LspAttach",
-        config = function()
-            require("lspsaga").setup({})
         end,
     },
 
-    'onsails/lspkind.nvim',
     {
-        'j-hui/fidget.nvim',
-        tag = 'legacy',
+        'lukas-reineke/indent-blankline.nvim',
         config = function()
-            require"fidget".setup {}
+            require("ibl").setup {}
         end,
     },
-    'folke/lsp-colors.nvim',
-
-    -- telescope
+  
+    -- Directory tree
+    'MunifTanjim/nui.nvim',
     'nvim-lua/plenary.nvim',
-    { 'nvim-telescope/telescope-fzf-native.nvim',
-      -- run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release',
-      run = 'make',
-    },
-    'kkharji/sqlite.lua',
-    'nvim-telescope/telescope-frecency.nvim',
+    'nvim-tree/nvim-web-devicons',
 
     {
-        'nvim-telescope/telescope.nvim',
-        tag = '0.1.5',
+        'nvim-neo-tree/neo-tree.nvim',
+        tag = '3.39.0',
         depends = {
+            'MunifTanjim/nui.nvim',
             'nvim-lua/plenary.nvim',
-            'nvim-telescope/telescope-frecency.nvim',
-            'nvim-telescope/telescope-fzf-native.nvim',
+            "nvim-tree/nvim-web-devicons",
         },
         config = function()
-            require("telescope").load_extension("frecency")
-            require('telescope').load_extension('fzf')
+            require("neo-tree").setup {}
+        end,
+    },
+
+    -- Code outline
+    { 'stevearc/aerial.nvim',
+      config = function() require('aerial').setup() end
+    },
+  
+    -- Yank
+    {
+        'gbprod/yanky.nvim',
+        config = function()
+            require("yanky").setup {}
+        end,
+    },
+
+    -- Clipboard
+    {
+        'AckslD/nvim-neoclip.lua',
+        config = function()
+            require('neoclip').setup {}
+        end,
+    },
+  
+    -- Edit
+    {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup {}
+        end,
+    },
+
+    {
+        'windwp/nvim-autopairs',
+        config = function()
+            require("nvim-autopairs").setup {}
+        end,
+    },
+
+    'deris/vim-rengbang',
+
+    'junegunn/vim-easy-align',
+
+    -- Fuzzy finder
+    {
+        'nvim-telescope/telescope.nvim',
+        tag = 'v0.2.1',
+        depends = {
+            'nvim-lua/plenary.nvim',
+            'gbprod/yanky.nvim',
+            'AckslD/nvim-neoclip.lua',
+        },
+        config = function()
+            require("telescope").load_extension("yank_history")
+            require('telescope').load_extension('neoclip')
             require('telescope').setup {
                 defaults = {
                     color_devicons = true,
@@ -205,133 +145,76 @@ require('jetpack.packer').add {
         end,
     },
 
-    -- lualine
+    'nvim-lua/plenary.nvim',
+
+    -- TODO assign key
     {
-        '',
+        'nvim-telescope/telescope-frecency.nvim',
+        depends = {
+            'nvim-telescope/telescope.nvim',
+        },
         config = function()
-        end,
-    },
-    {
-        'nvim-lualine/lualine.nvim',
-        config = function()
-            require('lualine').setup {
-                options = {
-                    theme = 'moonfly',
-                },
-            }
-        end,
-    },
-  
-    { 'stevearc/aerial.nvim',
-      config = function() require('aerial').setup() end
-    },
-  
-    {
-        'nvim-neo-tree/neo-tree.nvim',
-        branch = 'v2.x',
-        config = function()
-            require("neo-tree").setup {}
+            require("telescope").load_extension("frecency")
         end,
     },
 
-    -- tab
-    --{
-    --    'akinsho/bufferline.nvim',
-    --    depends = 'nvim-tree/nvim-web-devicons',
-    --    config = function()
-    --        vim.opt.termguicolors = true
-    --        require("bufferline").setup {
-    --            options = {
-    --                mode = "tabs",
-    --                diagnostics = "nvim_lsp",
-    --                offsets = {
-    --                    {
-    --                        filetype = "neo-tree",
-    --                        text = "󰥨 File Explorer",
-    --                        text_align = "left",
-    --                        separator = true,
-    --                    },
-    --                },
-    --            },
-    --        }
-    --    end,
-    --},
-  
-    -- display
-    'myusuf3/numbers.vim',
     {
-        'petertriho/nvim-scrollbar',
+        'nvim-telescope/telescope-fzf-native.nvim',
+        depends = {
+            'nvim-telescope/telescope.nvim',
+        },
+        -- run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release --target install',
+        run = 'make',
         config = function()
-            require("scrollbar").setup {
-                excluded_buftypes = {
-                    "terminal",
-                },
-                excluded_filetypes = {
-                    "prompt",
-                    "TelescopePrompt",
-                    "noice",
-                    "neo-tree",
-                    "aerial",
-                },
-            }
-        end,
-    },
-    {
-        'lukas-reineke/indent-blankline.nvim',
-        config = function()
-            require("ibl").setup {}
+            require('telescope').load_extension('fzf')
         end,
     },
 
-    -- git
-    --'airblade/vim-gitgutter',
+    -- Completion
+    'neovim/nvim-lspconfig',
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-cmdline',
+
     {
-        'lewis6991/gitsigns.nvim',
+        'hrsh7th/nvim-cmp',
         config = function()
-            require('gitsigns').setup {}
+            local cmp = require'cmp'
+            
+            cmp.setup({
+                window = {
+                    completion = cmp.config.window.bordered(),
+                    documentation = cmp.config.window.bordered(),
+                },
+                mapping = cmp.mapping.preset.insert({
+                    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                    ['<C-Space>'] = cmp.mapping.complete(),
+                    ['<C-e>'] = cmp.mapping.abort(),
+                    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                }),
+                sources = {
+                    { name = 'nvim_lsp' },
+                    { name = 'buffer' },
+                    { name = 'path' },
+                },
+            })
         end,
     },
-  
-    -- clipboard
-    {
-        'gbprod/yanky.nvim',
-        config = function()
-            require("yanky").setup {}
-        end,
-    },
-    {
-        'AckslD/nvim-neoclip.lua',
-        config = function()
-            require('neoclip').setup {}
-        end,
-    },
-  
-    -- edit
-    {
-        'numToStr/Comment.nvim',
-        config = function()
-            require('Comment').setup {}
-        end,
-    },
-    {
-        'windwp/nvim-autopairs',
-        config = function()
-            require("nvim-autopairs").setup {}
-        end,
-    },
-    'deris/vim-rengbang',
-    'junegunn/vim-easy-align',
 }
 
 -- colorscheme
 vim.cmd [[
-try
-colorscheme nightfox
-catch /^Vim\%((\a\+)\)\=:E185/
-colorscheme default
-set background=dark
-endtry
+    try
+        colorscheme nightfox
+    catch /^Vim\%((\a\+)\)\=:E185/
+        colorscheme default
+        set background=dark
+    endtry
 ]]
+
+require('lualine').setup({})
 
 vim.cmd [[ hi Comment gui=NONE ]] -- disable italic
 
@@ -342,8 +225,6 @@ vim.cmd [[ let g:numbers_exclude = ['neo-tree', 'aerial', 'terminal'] ]]
 vim.opt.list = true
 
 -- edit
-vim.cmd [[ lua require('telescope').load_extension('neoclip') ]]
-vim.cmd [[ lua require("telescope").load_extension("yank_history") ]]
 vim.cmd [[ command! Format execute 'lua vim.lsp.buf.format()' ]]
 
 -- options
@@ -385,8 +266,14 @@ keymap('n', ',y', '<cmd>lua require("telescope").extensions.neoclip.default()<cr
 keymap('n', ',p', '<cmd>lua require("telescope").extensions.yank_history.yank_history()<cr>', {noremap = true})
 keymap('n', ',a', '<cmd>AerialToggle<cr>', {noremap = true})
 
-keymap('n', '<c-n>', '<Plug>(YankyCycleForward)', opts)
-keymap('n', '<c-p>', '<Plug>(YankyCycleBackward)', opts)
+-- Yanky
+vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
+vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
+vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
+vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
+
+vim.keymap.set("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
+vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
 
 ---- escape from insert mode in terminal
 keymap('t', '<esc>', '<c-\\><c-n>', opts)
