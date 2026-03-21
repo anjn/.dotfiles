@@ -57,11 +57,14 @@ color_red     = '#c94f6d' # Red
 color_red2    = '#AB435D' # Red -0.15
 
 color_fg        = '#cdcecf' # Default fg
-color_userhost  = '#6085B6' # Blue -0.15
-color_directory = '#6E9783' # Green -0.15
-color_git       = '#BAA363' # Yellow -0.15
-color_lang      = '#CF8A52' # Orange -0.15
-color_env       = '#AB435D' # Red -0.15
+#color_userhost  = '#6085B6' # Blue -0.15
+#color_directory = '#6E9783' # Green -0.15
+#color_git       = '#BAA363' # Yellow -0.15
+color_userhost  = '#2f4159'
+color_directory = '#3A5045' # Green -0.55
+color_git       = '#635634' # Yellow -0.55
+color_lang      = '#6E492C' # Orange -0.55
+color_env       = '#5A2431' # Red -0.55
 color_time      = '#192330' # Default bg
 
 [os]
@@ -101,7 +104,7 @@ format = '[ $user]($style)'
 [hostname]
 ssh_only = false
 style = "bg:color_userhost fg:color_fg"
-format = '[@$hostname$ssh_symbol ]($style)'
+format = '[@$hostname ]($style)'
 
 [directory]
 style = "fg:color_fg bg:color_directory"
