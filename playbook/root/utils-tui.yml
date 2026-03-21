@@ -5,12 +5,14 @@
       ansible.builtin.apt:
         pkg:
           - curl
+          - gawk
           - git
           - htop
           - libfontconfig1-dev # alacritty
           - libfreetype6-dev # alacritty
           - libimage-exiftool-perl
           - libxcb-xfixes0-dev # alacritty
+          - make
           - neofetch
           - neovim
           - ranger
