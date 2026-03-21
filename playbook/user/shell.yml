@@ -8,5 +8,5 @@
           - alacritty
 
     - name: Add nightfox theme
-      ansible.builtin.command: TERMINAL=gnome-terminal /opt/gogh/installs/nightfox.sh
+      ansible.builtin.command: bash -c "TERMINAL=gnome-terminal /opt/gogh/installs/nightfox.sh"
 
