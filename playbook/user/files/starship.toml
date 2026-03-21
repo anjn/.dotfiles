@@ -1,0 +1,207 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+[ ](bg:color_userhost)\
+$os\
+$username\
+$hostname\
+[](fg:color_userhost bg:color_directory)\
+$directory\
+[](fg:color_directory bg:color_git)\
+$git_branch\
+$git_status\
+[](fg:color_git bg:color_lang)\
+$c\
+$cpp\
+$rust\
+$golang\
+$nodejs\
+$php\
+$java\
+$kotlin\
+$haskell\
+$python\
+[](fg:color_lang bg:color_env)\
+$docker_context\
+$conda\
+$pixi\
+[ ](fg:color_env)\
+$line_break$character"""
+
+# https://github.com/EdenEast/nightfox.nvim/blob/main/lua/nightfox/palette/nightfox.lua
+palette = 'nightfox'
+
+[palettes.nightfox]
+color_fg0     = '#d6d6d7' # Lighter fg
+color_fg1     = '#cdcecf' # Default fg
+color_bg0     = '#131a24' # Dark bg (status line and float)
+color_bg1     = '#192330' # Default bg
+color_bg3     = '#29394f' # Lighter bg (cursor line)
+
+color_blue    = '#719cd6' # Blue
+color_blue1   = '#86ABDC' # Blue +0.15
+color_blue2   = '#6085B6' # Blue -0.15
+
+color_green   = '#81b29a' # Green
+color_green2  = '#6E9783' # Green -0.15
+
+color_yellow  = '#dbc074' # Yellow
+color_yellow2 = '#BAA363' # Yellow -0.15
+
+color_orange  = '#f4a261' # Orange
+color_orange2 = '#CF8A52' # Orange -0.15
+
+color_aqua    = '#63cdcf' # Cyan
+color_purple  = '#9d79d6' # Magenta
+color_red     = '#c94f6d' # Red
+color_red2    = '#AB435D' # Red -0.15
+
+color_fg        = '#cdcecf' # Default fg
+color_userhost  = '#6085B6' # Blue -0.15
+color_directory = '#6E9783' # Green -0.15
+color_git       = '#BAA363' # Yellow -0.15
+color_lang      = '#CF8A52' # Orange -0.15
+color_env       = '#AB435D' # Red -0.15
+color_time      = '#192330' # Default bg
+
+[os]
+disabled = false
+style = "bg:color_userhost fg:color_fg"
+
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+AOSC = ""
+Arch = "󰣇"
+Artix = "󰣇"
+EndeavourOS = ""
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+Pop = ""
+
+[username]
+show_always = true
+style_user = "bg:color_userhost fg:color_fg"
+style_root = "bg:color_userhost fg:color_fg"
+format = '[ $user]($style)'
+
+[hostname]
+ssh_only = false
+style = "bg:color_userhost fg:color_fg"
+format = '[@$hostname$ssh_symbol ]($style)'
+
+[directory]
+style = "fg:color_fg bg:color_directory"
+format = "[ $path ]($style)"
+truncation_length = 8
+#truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+[git_branch]
+symbol = ""
+style = "bg:color_git"
+format = '[[ $symbol $branch ](fg:color_fg bg:color_git)]($style)'
+
+[git_status]
+style = "bg:color_git"
+format = '[[($all_status$ahead_behind )](fg:color_fg bg:color_git)]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:color_lang"
+format = '[[ $symbol( $version) ](fg:color_fg bg:color_lang)]($style)'
+
+[c]
+symbol = " "
+style = "bg:color_lang"
+format = '[[ $symbol( $version) ](fg:color_fg bg:color_lang)]($style)'
+
+[cpp]
+symbol = " "
+style = "bg:color_lang"
+format = '[[ $symbol( $version) ](fg:color_fg bg:color_lang)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:color_lang"
+format = '[[ $symbol( $version) ](fg:color_fg bg:color_lang)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:color_lang"
+format = '[[ $symbol( $version) ](fg:color_fg bg:color_lang)]($style)'
+
+[php]
+symbol = ""
+style = "bg:color_lang"
+format = '[[ $symbol( $version) ](fg:color_fg bg:color_lang)]($style)'
+
+[java]
+symbol = ""
+style = "bg:color_lang"
+format = '[[ $symbol( $version) ](fg:color_fg bg:color_lang)]($style)'
+
+[kotlin]
+symbol = ""
+style = "bg:color_lang"
+format = '[[ $symbol( $version) ](fg:color_fg bg:color_lang)]($style)'
+
+[haskell]
+symbol = ""
+style = "bg:color_lang"
+format = '[[ $symbol( $version) ](fg:color_fg bg:color_lang)]($style)'
+
+[python]
+symbol = ""
+style = "bg:color_lang"
+format = '[[ $symbol( $version) ](fg:color_fg bg:color_lang)]($style)'
+
+[docker_context]
+symbol = ""
+style = "bg:color_env"
+format = '[[ $symbol( $context) ](fg:#83a598 bg:color_env)]($style)'
+
+[conda]
+style = "bg:color_env"
+format = '[[ $symbol( $environment) ](fg:#83a598 bg:color_env)]($style)'
+
+[pixi]
+style = "bg:color_env"
+format = '[[ $symbol( $version)( $environment) ](fg:color_fg bg:color_env)]($style)'
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:color_time"
+format = '[[  $time ](fg:color_fg bg:color_time)]($style)'
+
+[line_break]
+disabled = false
+
+[character]
+disabled = false
+success_symbol = '[❯](bold fg:color_green)'
+error_symbol = '[❯](bold fg:color_red)'
+vimcmd_symbol = '[❮](bold fg:color_blue)'
+vimcmd_replace_one_symbol = '[❮](bold fg:color_green)'
+vimcmd_replace_symbol = '[❮](bold fg:color_green)'
+vimcmd_visual_symbol = '[❮](bold fg:color_purple)'

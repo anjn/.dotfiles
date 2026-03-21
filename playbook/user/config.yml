@@ -10,6 +10,7 @@
       loop:
         - tmux
         - peco
+        - starship.toml
 
     # ~/
     - name: Create a symbolic link to files
@@ -27,10 +28,13 @@
         path: ~/.profile
         state: touch
     
-    - name: Update .profile for sourcing enhancd/init.sh
-      ansible.builtin.blockinfile:
-        path: ~/.profile
-        block: "source /opt/enhancd/init.sh"
+    # - name: Update .profile
+    #   ansible.builtin.blockinfile:
+    #     path: ~/.profile
+    #     block: |
+    #       source /opt/enhancd/init.sh
+    #       eval "$(zoxide init bash)"
+    #       FZF_CTRL_R_COMMAND FZF_CTRL_T_COMMAND= FZF_ALT_C_COMMAND= eval "$(fzf --bash)"
     
     # .bashrc
     - name: Update bashrc

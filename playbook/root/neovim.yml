@@ -4,7 +4,7 @@
     # lazygit
     - name: Install lazygit
       ansible.builtin.unarchive:
-        src: "https://github.com/jesseduffield/lazygit/releases/download/v0.44.1/lazygit_0.44.1_Linux_x86_64.tar.gz"
+        src: https://github.com/jesseduffield/lazygit/releases/download/v0.60.0/lazygit_0.60.0_linux_x86_64.tar.gz
         dest: /usr/local/bin
         extra_opts:
           - lazygit
@@ -12,14 +12,15 @@
         owner: root
         group: root
         mode: '0755'
+      when: ansible_architecture == "x86_64"
 
     # neovim
     - name: Install neovim
       ansible.builtin.get_url:
-        url: https://github.com/neovim/neovim/releases/download/v0.11.5/nvim-linux-x86_64.appimage
+        url: https://github.com/neovim/neovim/releases/download/v0.11.6/nvim-linux-x86_64.appimage
         dest: /usr/local/bin/nvim
         mode: '0755'
-        #checksum: sha256:https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage.sha256sum
+      when: ansible_architecture == "x86_64"
 
     - name: Install neovim dependencies
       ansible.builtin.apt:
@@ -28,6 +29,22 @@
           - build-essential
           - clangd
           - cmake
+        state: present
+        update_cache: false
+
+    - name: Install neovim dependencies, 22.04
+      ansible.builtin.apt:
+        pkg:
+          - libfuse2 # for AppImage
+        state: present
+        update_cache: false
+      when: ansible_distribution_version == "22.04"
+
+    - name: Install neovim dependencies, 24.04
+      ansible.builtin.apt:
+        pkg:
           - libfuse2t64 # for AppImage
         state: present
         update_cache: false
+      when: ansible_distribution_version == "24.04"
+
