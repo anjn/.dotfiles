@@ -45,6 +45,8 @@
 # 
 # bind -x '"\C-r": peco-select-history'
 
+source -- ~/.local/share/blesh/ble.sh
+
 FZF_CTRL_R_COMMAND= FZF_CTRL_T_COMMAND= FZF_ALT_C_COMMAND= \
     eval "$(fzf --bash)"
 

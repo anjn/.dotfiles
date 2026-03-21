@@ -10,3 +10,23 @@
     - name: Add nightfox theme
       ansible.builtin.command: bash -c "TERMINAL=gnome-terminal /opt/gogh/installs/nightfox.sh"
 
+    - name: Create directory ~/repo
+      ansible.builtin.file:
+        path: ~/repo
+        state: directory
+
+    - name: Create directory ~/.local
+      ansible.builtin.file:
+        path: ~/.local
+        state: directory
+
+    - name: Clone repository ble.sh
+      ansible.builtin.git:
+        repo: https://github.com/akinomyoga/ble.sh.git
+        dest: ~/repo/ble.sh
+        update: no
+        depth: 1
+
+    - name: Make ble.sh
+      ansible.builtin.command: bash -c "make -C ~/repo/ble.sh install PREFIX=~/.local"
+
