@@ -1,10 +1,9 @@
 ```
-sudo apt install ansible-core
+curl https://mise.run | sh
+mise i
 
-# sudo ansible-playbook -i inventory.yml ./playbook/root/*.yml
-# ansible-playbook -i inventory.yml ./playbook/user/*.yml
-
-rustup update
+mise use rust -g rust
+mise use uv
 
 sudo ansible-playbook -i inventory.yml ./playbook/root/utils-tui.yml
 sudo ansible-playbook -i inventory.yml ./playbook/root/neovim.yml
