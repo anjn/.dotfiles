@@ -32,3 +32,5 @@
 [user]
         email = jun.ando@amd.com
         name = Jun Ando
+[credential]
+	helper = store
