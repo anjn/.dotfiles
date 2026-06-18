@@ -1,6 +1,9 @@
 -- Auto install jetpack
 local jetpackfile = vim.fn.stdpath('data') .. '/site/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim'
-local jetpackurl = "https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim"
+--local jetpackurl = "https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim"
+--0.12 workaround
+--https://github.com/tani/vim-jetpack/issues/141
+local jetpackurl = "https://github.com/anjn/vim-jetpack/raw/refs/heads/fix/vim-list-callable-check/plugin/jetpack.vim"
 if vim.fn.filereadable(jetpackfile) == 0 then
     vim.fn.system(string.format('curl -fsSLo %s --create-dirs %s', jetpackfile, jetpackurl))
 end
@@ -12,7 +15,7 @@ vim.cmd [[ set updatetime=100 ]]
 vim.cmd('packadd vim-jetpack')
 require('jetpack.packer').add {
     -- Plugin manager
-    { 'tani/vim-jetpack', opt = 1 },
+    { 'anjn/vim-jetpack', branch = 'fix/vim-list-callable-check', opt = 1 },
 
     -- Color schemes
     'EdenEast/nightfox.nvim',
