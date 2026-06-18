@@ -3,7 +3,7 @@
     - name: Install "atuin" Rust package
       community.general.cargo:
         name:
-          - atuin
+          #- atuin
           - starship
           - alacritty
 
@@ -29,4 +29,7 @@
 
     - name: Make ble.sh
       ansible.builtin.command: bash -c "make -C ~/repo/ble.sh install PREFIX=~/.local"
+
+    - name: Atuin
+      ansible.builtin.command: bash -c "mise use -g atuin@latest"
 
