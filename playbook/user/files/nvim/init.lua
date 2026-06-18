@@ -202,6 +202,14 @@ require('jetpack.packer').add {
             })
         end,
     },
+
+    -- CSV viewer
+    {
+        'hat0uma/csvview.nvim',
+        config = function()
+            require("csvview").setup {}
+        end,
+    },
 }
 
 -- colorscheme
