@@ -1,4 +1,5 @@
-```
+#!/usr/bin/env bash
+
 curl https://mise.run | sh
 
 echo "eval \"\$($HOME/.local/bin/mise activate bash)\"" >> ~/.bashrc
@@ -16,12 +17,4 @@ ansible-playbook -i inventory.yml ./playbook/user/shell.yml
 ansible-playbook -i inventory.yml ./playbook/user/config.yml
 
 source ~/.bashrc
-```
 
-
-```
-atuin import bash
-
-nvim
-  :JetpackSync
-```
