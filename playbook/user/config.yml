@@ -8,9 +8,12 @@
         dest: "~/.config/{{ item }}"
         state: link
       loop:
-        - tmux
+        - alacritty
         - peco
         - starship.toml
+        - sway
+        - tmux
+        - wofi
 
     # ~/
     - name: Create a symbolic link to files

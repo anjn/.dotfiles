@@ -1,0 +1,24 @@
+---
+- hosts: all
+  tasks:
+    - name: Install sway
+      ansible.builtin.apt:
+        pkg:
+          - sway 
+          - waybar 
+          - foot 
+          - wofi 
+          - mako-notifier 
+          - swaylock 
+          - swayidle 
+          - swaybg 
+          - grim 
+          - slurp 
+          - wl-clipboard 
+          - kanshi 
+          - xwayland 
+          - xdg-desktop-portal-wlr
+          - wdisplays # for display settings
+        state: present
+        update_cache: false
+

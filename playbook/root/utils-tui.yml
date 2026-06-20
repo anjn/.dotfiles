@@ -13,8 +13,6 @@
           - libimage-exiftool-perl
           - libxcb-xfixes0-dev # alacritty
           - make
-          - neofetch
-          - neovim
           - ranger
           - rclone
           - ruby
@@ -24,6 +22,22 @@
           - tree
         state: present
         update_cache: false
+
+    - name: Install TUI utilities
+      ansible.builtin.apt:
+        pkg:
+          - neofetch
+        state: present
+        update_cache: false
+      when: ansible_distribution_version == "22.04" or ansible_distribution_version == "24.04"
+
+    - name: Install TUI utilities
+      ansible.builtin.apt:
+        pkg:
+          - fastfetch
+        state: present
+        update_cache: false
+      when: ansible_distribution_version == "26.04"
 
     - name: Install peco
       ansible.builtin.unarchive:
@@ -40,7 +54,7 @@
 
     - name: Install fzf
       ansible.builtin.unarchive:
-        src: https://github.com/junegunn/fzf/releases/download/v0.70.0/fzf-0.70.0-linux_amd64.tar.gz
+        src: https://github.com/junegunn/fzf/releases/download/v0.73.1/fzf-0.73.1-linux_amd64.tar.gz
         dest: /usr/local/bin
         include:
           - fzf
