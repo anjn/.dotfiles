@@ -1,0 +1,45 @@
+* {
+    font-family: HackGen;
+    font-size: 16px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+}
+
+window#waybar {
+    background: #202020;
+    color: #eeeeee;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    color: #bbbbbb;
+    background: transparent;
+}
+
+#workspaces button.focused {
+    color: #ffffff;
+    background: #505050;
+}
+
+#workspaces button.urgent {
+    color: #ffffff;
+    background: #a00000;
+}
+
+#mode,
+#window,
+#pulseaudio,
+#network,
+#clock,
+#tray {
+    padding: 0 10px;
+}
+
+#pulseaudio.muted {
+    color: #ff7777;
+}
+
+#network.disconnected {
+    color: #ff7777;
+}

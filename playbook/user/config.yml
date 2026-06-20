@@ -13,6 +13,7 @@
         - starship.toml
         - sway
         - tmux
+        - waybar
         - wofi
 
     # ~/

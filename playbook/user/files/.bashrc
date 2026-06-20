@@ -58,3 +58,7 @@ eval "$(starship init bash --print-full-init)"
 eval "$(atuin init bash --disable-up-arrow)"
 
 eval "$(zoxide init bash --cmd j)"
+
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx

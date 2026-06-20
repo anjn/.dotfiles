@@ -19,6 +19,7 @@
           - xwayland 
           - xdg-desktop-portal-wlr
           - wdisplays # for display settings
+          - pulseaudio-utils # for audio control
         state: present
         update_cache: false
 
