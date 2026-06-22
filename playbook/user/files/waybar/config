@@ -9,7 +9,7 @@
   ],
 
   "modules-center": [
-    "sway/window"
+    "clock"
   ],
 
   "modules-right": [
@@ -17,7 +17,6 @@
     "network",
     "cpu",
     "memory",
-    "clock",
     "tray"
   ],
 

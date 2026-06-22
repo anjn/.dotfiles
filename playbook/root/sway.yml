@@ -20,6 +20,7 @@
           - xdg-desktop-portal-wlr
           - wdisplays # for display settings
           - pulseaudio-utils # for audio control
+          - wob
         state: present
         update_cache: false
 

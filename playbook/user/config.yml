@@ -32,6 +32,11 @@
         path: ~/.profile
         state: touch
     
+    - name: Update .profile
+      ansible.builtin.blockinfile:
+        path: ~/.profile
+        block: "{{ lookup('ansible.builtin.file', './files/.profile') }}"
+    
     # - name: Update .profile
     #   ansible.builtin.blockinfile:
     #     path: ~/.profile

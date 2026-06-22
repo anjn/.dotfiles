@@ -7,10 +7,36 @@
 exec fcitx5
 exec waybar
 
+# Display settings
+#output HDMI-A-1 resolution 3840x2160@60.000Hz position 0,0
+output HDMI-A-1 disable
+output DP-1 resolution 5120x2160@59.985Hz
+
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod1
+
+set $browser google-chrome
+bindsym $mod+Shift+Return exec $browser
+
+# Enable HDMI on the left of DP-1
+bindsym $mod+Shift+f exec swaymsg output HDMI-A-1 enable resolution 3840x2160@60.000Hz && swaymsg output DP-1 resolution 5120x2160@59.985Hz
+# Disable HDMI and move DP-1 to origin
+bindsym $mod+Shift+d exec swaymsg output HDMI-A-1 disable && swaymsg output DP-1 resolution 5120x2160@59.985Hz
+
+default_border pixel 2
+default_floating_border pixel 2
+gaps inner 4
+gaps outer 4
+smart_borders on
+smart_gaps on
+#hide_edge_borders both
+#titlebar_padding 1
+#titlebar_border_thickness 0
+#for_window [app_id="Alacritty"] opacity 0.9
+
+exec swaybg -m fit -i ~/Pictures/Wallpapers/wallpaperswide.com-tokyo-tower-illuminating-the-night-skyline-of-minato-city-japan-wallpaper-5120x2160.jpg
 
 # Home row direction keys, like vim
 set $left h
@@ -190,16 +216,16 @@ mode "resize" {
     # right will grow the containers width
     # up will shrink the containers height
     # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
+    bindsym $left resize shrink width 50px
+    bindsym $down resize grow height 50px
+    bindsym $up resize shrink height 50px
+    bindsym $right resize grow width 50px
 
     # Ditto, with arrow keys
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
+    bindsym Left resize shrink width 50px
+    bindsym Down resize grow height 50px
+    bindsym Up resize shrink height 50px
+    bindsym Right resize grow width 50px
 
     # Return to default mode
     bindsym Return mode "default"
