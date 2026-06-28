@@ -6,13 +6,17 @@
         pkg:
           - curl
           - gawk
+          - gh
           - git
+          - git-lfs
           - htop
           - libfontconfig1-dev # alacritty
           - libfreetype6-dev # alacritty
           - libimage-exiftool-perl
           - libxcb-xfixes0-dev # alacritty
           - make
+          - podman
+          - podman-compose
           - ranger
           - rclone
           - ruby

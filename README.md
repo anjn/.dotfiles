@@ -42,6 +42,14 @@ https://fonts.google.com/share?selection.family=Noto+Sans+JP:wght@100..900|Noto+
 sudo mkdir /usr/share/fonts/noto
 sudo mv Noto_Sans_JP Noto_Serif_JP/ /usr/share/fonts/noto/
 sudo fc-cache -vf
+
+#npm
+sudo apt install npm
+sudo npm install -g n
+sudo n stable
+sudo apt purge npm
+sudo apt autoremove
+
 ```
 
 
